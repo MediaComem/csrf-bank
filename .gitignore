@@ -1,0 +1,5 @@
+# https://git-scm.com/docs/gitignore
+/db.loki
+/.env*
+/!.env.sample
+/node_modules

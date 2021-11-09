@@ -4,8 +4,9 @@ import { route } from '../express.js';
 import { getValidationErrors } from '../validation.js';
 
 export const transfer = route(async (req, res) => {
+  const { _csrf, ...body } = req.body;
   const data = {
-    ...req.body,
+    ...body,
     amount: coerceAmount(req.body.amount)
   };
 

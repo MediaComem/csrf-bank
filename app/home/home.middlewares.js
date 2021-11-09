@@ -51,12 +51,14 @@ function formatOperation({ amount, date, ...rest }) {
 }
 
 export const logIn = route(async (req, res) => {
-  const errors = getValidationErrors(req.body, 'login');
+  const { _csrf, ...body } = req.body;
+
+  const errors = getValidationErrors(body, 'login');
   if (errors) {
     return invalidLogin(req, res, 'Login payload is invalid');
   }
 
-  const { username, password } = req.body;
+  const { username, password } = body;
   req.logger.trace(`User ${JSON.stringify(username)} logging in`);
 
   const user = req.app

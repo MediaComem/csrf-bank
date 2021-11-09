@@ -20,6 +20,10 @@ if operations.length === 1 && operations[0].type === 'credit'
   .col-12.col-lg-6
     h3 Transfer
     form(action='/banking/transfer', method='POST')
+
+      //- Anti-CSRF token
+      input(type="hidden", name="_csrf", value=csrfToken)
+
       //- Amount field
       .mb-3
         label.form-label(for='transfer-amount') Amount

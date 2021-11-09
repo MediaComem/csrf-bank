@@ -12,6 +12,10 @@ block content
 
   //- Registration form
   form.col-12.col-md-10.col-lg-8.col-xl-6(action='/users', method='POST')
+
+    //- Anti-CSRF token
+    input(type="hidden", name="_csrf", value=csrfToken)
+
     //- Username field
     .mb-3
       label.form-label(for='user-name') Username

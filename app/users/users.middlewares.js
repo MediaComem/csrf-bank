@@ -13,7 +13,9 @@ export const createUserPage = route((req, res) => {
 });
 
 export const createUser = route(async (req, res) => {
-  const errors = getValidationErrors(req.body, 'create-user');
+  const { _csrf, ...body } = req.body;
+
+  const errors = getValidationErrors(body, 'create-user');
   if (errors) {
     return res.render('users/create-user', {
       pageTitle: createUserPageTitle,
@@ -21,7 +23,7 @@ export const createUser = route(async (req, res) => {
     });
   }
 
-  const { name, password } = req.body;
+  const { name, password } = body;
 
   const { bcryptRounds } = req.app.get('config');
   const passwordHash = await hash(password, bcryptRounds);

@@ -10,6 +10,7 @@ block page
       //- Logout
       if user
         form(action="/logout", method="POST")
+          input(type="hidden", name="_csrf", value=csrfToken)
           button.btn.btn-navbar(type="submit")
             i.bi.bi-box-arrow-right
             = ' '

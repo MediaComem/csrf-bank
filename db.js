@@ -16,17 +16,24 @@ export function openDatabase(config) {
         return reject(err);
       }
 
-      ensureCollection(db, 'users', logger);
+      ensureCollection(db, 'users', logger, { unique: ['name'] });
+      ensureCollection(db, 'operations', logger);
 
-      logger.debug(`Opened database file ${config.dbFile}`);
+      logger.info(`Opened database file ${config.dbFile}`);
       resolve(db);
     }
   });
 }
 
-function ensureCollection(db, name, logger) {
+export function closeDatabase(db) {
+  return new Promise((resolve, reject) =>
+    db.close(err => (err ? reject(err) : resolve()))
+  );
+}
+
+function ensureCollection(db, name, logger, options = {}) {
   if (!db.getCollection(name)) {
-    db.addCollection(name);
+    db.addCollection(name, options);
     logger.debug(`Created database collection ${name}`);
   }
 }

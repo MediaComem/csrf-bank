@@ -1,0 +1,71 @@
+//- Free credits alert
+if operations.length === 1 && operations[0].type === 'credit'
+  .alert.alert-success
+    p.mb-0
+      | Because we love new customers, we have credited your new account with
+      = " "
+      strong 10'000 free credits
+      | !
+
+.row.mt-4
+  //- Balance
+  .col-12.col-lg-6
+    h3 Balance
+    p.lead(class="text-" + (balance.startsWith('-') ? "danger" : "success"))
+      = balance
+      = " "
+      | credits
+
+  //- Transfer form
+  .col-12.col-lg-6
+    h3 Transfer
+    form(action='/banking/transfer', method='POST')
+      //- Amount field
+      .mb-3
+        label.form-label(for='transfer-amount') Amount
+        input#transfer-amount.form-control(
+          type='number',
+          name='amount',
+          required,
+          min=0
+        )
+
+      //- Recipient field
+      .mb-3
+        label.form-label(for='transfer-recipient') Recipient
+        input#transfer-recipient.form-control(
+          type='text',
+          name='recipient',
+          required,
+          minlength=1
+        )
+
+      //- Actions
+      button.btn.btn-primary(type='submit') Transfer
+
+  .row.mt-4
+
+    //- Operations
+    .col-12
+      h3 Operations
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Date
+            th Type
+            th Amount
+            th Recipient
+        tbody
+          if operations.length === 0
+            tr
+              td(colspan=4) No operations
+          each operation in operations
+            tr
+              td= operation.date
+              td= operation.type
+              td= operation.amount
+              td
+                if operation.recipient
+                  = operation.recipient
+                else
+                  | -

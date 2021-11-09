@@ -1,29 +1,68 @@
 import { isInteger } from 'lodash-es';
 import log4js from 'log4js';
-import { dirname, join as joinPath, resolve as resolvePath } from 'path';
+import { dirname, resolve as resolvePath } from 'path';
 import { fileURLToPath } from 'url';
 
+export const logLevels = ['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'];
 export const root = dirname(fileURLToPath(import.meta.url));
 
 export async function loadConfig() {
   await loadDotenv();
 
+  const env = process.env.NODE_ENV ?? 'development';
+
   const dbFile = resolvePath(root, parseEnvString('BANK_DB_FILE', 'db.loki'));
+  const sessionsDir = resolvePath(
+    root,
+    parseEnvString('BANK_SESSIONS_DIR', 'sessions')
+  );
+
   const host = parseEnvString('BANK_LISTEN_HOST', '0.0.0.0');
   const port = parseEnvPort('BANK_LISTEN_PORT', 3000);
 
+  const logLevel = parseEnvEnum(
+    'BANK_LOG_LEVEL',
+    logLevels,
+    env === 'production' ? 'DEBUG' : 'TRACE',
+    value => value.toUpperCase()
+  );
+
+  const bcryptRounds = parseEnvInt('BANK_BCRYPT_ROUNDS', 10, 1);
+  const sessionLifetime = parseEnvInt(
+    'BANK_SESSION_LIFETIME',
+    // 1 day in milliseconds
+    1000 * 60 * 60 * 24,
+    1
+  );
+  const sessionSecret = parseEnvString('BANK_SESSION_SECRET');
+
+  const title = parseEnvString('BANK_TITLE', 'Carl Sagan Richard Feynman Bank');
+
   function createLogger(category) {
     const logger = log4js.getLogger(category);
-    logger.level = 'DEBUG';
+    logger.level = logLevel;
     return logger;
   }
+
+  const logger = createLogger('config');
+  logger.info(`Environment: ${env}`);
+  logger.info(`Log level: ${logLevel}`);
 
   return {
     // Paths
     dbFile,
+    sessionsDir,
+    // Environment,
+    env,
     // Server
     host,
     port,
+    // Security
+    bcryptRounds,
+    sessionLifetime,
+    sessionSecret,
+    // Other
+    title,
     // Functions
     createLogger
   };
@@ -49,6 +88,24 @@ function getEnvString(varName, required = true) {
   }
 
   return value;
+}
+
+function parseEnvEnum(varName, allowedValues, defaultValue, coerce) {
+  const value = getEnvString(varName, defaultValue === undefined);
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  const coerced = coerce(value);
+  if (!allowedValues.includes(coerced)) {
+    throw new Error(
+      `$${varName} must be one of ${allowedValues
+        .map(allowed => JSON.stringify(allowed))
+        .join(', ')}, but its value is ${JSON.stringify(coerced)}`
+    );
+  }
+
+  return coerced;
 }
 
 function parseEnvInt(varName, defaultValue, min, max) {

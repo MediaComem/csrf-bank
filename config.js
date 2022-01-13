@@ -31,7 +31,7 @@ export async function loadConfig() {
   const sessionLifetime = parseEnvInt(
     'BANK_SESSION_LIFETIME',
     // 1 day in milliseconds
-    1000 * 60 * 60 * 24,
+    1_000 * 60 * 60 * 24,
     1
   );
   const sessionSecret = parseEnvString('BANK_SESSION_SECRET');
@@ -47,6 +47,9 @@ export async function loadConfig() {
   const logger = createLogger('config');
   logger.info(`Environment: ${env}`);
   logger.info(`Log level: ${logLevel}`);
+  logger.debug(
+    `Session lifetime: ${sessionLifetime / (1_000 * 60 * 60)} hours`
+  );
 
   return {
     // Paths

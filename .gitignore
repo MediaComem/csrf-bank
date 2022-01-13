@@ -1,6 +1,6 @@
 # https://git-scm.com/docs/gitignore
 /db.loki
 /.env*
-/!.env.sample
+!/.env.sample
 /node_modules
 /sessions

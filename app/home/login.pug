@@ -1,15 +1,14 @@
 //- Login form
 form.col-12.col-md-10.col-lg-8.col-xl-6(action='/login', method='POST')
-
   //- Username field
   .mb-3
     label.form-label(for='login-username') Username
     input#login-username.form-control(
       type='text',
       name='username',
-      value= username
+      value=username,
       autocomplete='username',
-      autofocus= !username,
+      autofocus=!username,
       required,
       minlength=1
     )
@@ -21,7 +20,7 @@ form.col-12.col-md-10.col-lg-8.col-xl-6(action='/login', method='POST')
       type='password',
       name='password',
       autocomplete='current-password',
-      autofocus= !!username,
+      autofocus=!!username,
       required,
       minlength=1
     )

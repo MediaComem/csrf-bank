@@ -11,7 +11,7 @@ if operations.length === 1 && operations[0].type === 'credit'
   //- Balance
   .col-12.col-lg-6
     h3 Balance
-    p.lead(class="text-" + (balance.startsWith('-') ? "danger" : "success"))
+    p.lead(class="text-" + (balance.startsWith("-") ? "danger" : "success"))
       = balance
       = " "
       | credits
@@ -44,7 +44,6 @@ if operations.length === 1 && operations[0].type === 'credit'
       button.btn.btn-primary(type='submit') Transfer
 
   .row.mt-4
-
     //- Operations
     .col-12
       h3 Operations

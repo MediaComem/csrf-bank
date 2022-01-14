@@ -51,6 +51,7 @@ export async function loadConfig() {
   logger.debug(
     `Session lifetime: ${sessionLifetime / (1_000 * 60 * 60)} hours`
   );
+  logger.debug(`Trust proxy: ${trustProxy}`);
 
   return {
     // Paths

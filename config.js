@@ -35,6 +35,7 @@ export async function loadConfig() {
     1
   );
   const sessionSecret = parseEnvString('BANK_SESSION_SECRET');
+  const trustProxy = parseEnvBoolean('BANK_TRUST_PROXY', env === 'production');
 
   const title = parseEnvString('BANK_TITLE', 'Carl Sagan Richard Feynman Bank');
 
@@ -64,6 +65,7 @@ export async function loadConfig() {
     bcryptRounds,
     sessionLifetime,
     sessionSecret,
+    trustProxy,
     // Other
     title,
     // Functions
@@ -91,6 +93,23 @@ function getEnvString(varName, required = true) {
   }
 
   return value;
+}
+
+function parseEnvBoolean(varName, defaultValue) {
+  const value = getEnvString(varName, defaultValue === undefined);
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  if (/^(?:1|y|yes|t|true)$/u.exec(value)) {
+    return true;
+  } else if (/^(?:0|n|no|f|false)$/u.exec(value)) {
+    return false;
+  } else {
+    throw new Error(
+      `$${varName} must be a boolean, but its value is ${JSON.stringify(value)}`
+    );
+  }
 }
 
 function parseEnvEnum(varName, allowedValues, defaultValue, coerce) {

@@ -3,7 +3,7 @@ if operations.length === 1 && operations[0].type === 'credit'
   .alert.alert-success
     p.mb-0
       | Because we love new customers, we have credited your new account with
-      = " "
+      = ' '
       strong 10'000 free credits
       | !
 
@@ -11,9 +11,9 @@ if operations.length === 1 && operations[0].type === 'credit'
   //- Balance
   .col-12.col-lg-6
     h3 Balance
-    p.lead(class="text-" + (balance.startsWith("-") ? "danger" : "success"))
+    p.lead(class='text-' + (balance.startsWith('-') ? 'danger' : 'success'))
       = balance
-      = " "
+      = ' '
       | credits
 
   //- Transfer form

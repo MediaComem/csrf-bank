@@ -17,6 +17,7 @@
   "scripts": {
     "clean": "del db.loki \"sessions/*.json\"",
     "dev": "nodemon",
+    "doctoc": "doctoc --github README.md",
     "lint": "prettier --check .",
     "lint:write": "prettier --write .",
     "start": "node ./bin.js"
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@prettier/plugin-pug": "^1.16.7",
     "del-cli": "^4.0.1",
+    "doctoc": "^2.1.0",
     "dotenv": "^14.3.2",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"

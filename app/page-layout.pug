@@ -1,11 +1,10 @@
 extends layout
 
 block page
-
   //- Navbar
   nav.navbar.navbar-expand-lg.navbar-dark.bg-danger
     .container-fluid
-      a.navbar-brand(href="/")= title
+      a.navbar-brand(href='/')= title
 
       //- Logout
       if user
@@ -13,14 +12,14 @@ block page
           input(type="hidden", name="_csrf", value=csrfToken)
           button.btn.btn-navbar(type="submit")
             i.bi.bi-box-arrow-right
-            = ' '
+            = " "
             | Log out
 
   //- Welcome message
   .container
     p.lead.mt-3
       | Welcome to the #{ title }!
-      = ' '
+      = " "
       small.fst-italic (No relation to the famous physicists.)
 
     if pageTitle

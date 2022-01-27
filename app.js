@@ -28,6 +28,9 @@ export function createApplication(config, db) {
   app.set('views', joinPath(root, 'app'));
   app.set('view engine', 'pug');
 
+  // Trust proxy headers.
+  app.set('trust proxy', config.trustProxy);
+
   const reqLogger = config.createLogger('req');
 
   // Generate a request ID and create a logger for each request.

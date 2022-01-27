@@ -35,14 +35,14 @@ export async function loadConfig() {
     1
   );
   const sessionSecret = parseEnvString('BANK_SESSION_SECRET');
-  const trustProxy = parseEnvBoolean('BANK_TRUST_PROXY', env === 'production');
+  const trustProxy = parseEnvBoolean('BANK_TRUST_PROXY', false);
 
   const title = parseEnvString('BANK_TITLE', 'Carl Sagan Richard Feynman Bank');
 
   function createLogger(category) {
-    const logger = log4js.getLogger(category);
-    logger.level = logLevel;
-    return logger;
+    const newLogger = log4js.getLogger(category);
+    newLogger.level = logLevel;
+    return newLogger;
   }
 
   const logger = createLogger('config');

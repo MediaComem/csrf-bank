@@ -5,14 +5,14 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/AlphaHydrae/exploit-csrf-bank.git"
+    "url": "git+ssh://git@github.com/MediaComem/exploit-csrf-bank.git"
   },
-  "author": "Simon Oulevay <contact@alphahydrae.com>",
+  "author": "Simon Oulevay <simon.oulevay@heig-vd.ch>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlphaHydrae/exploit-csrf-bank/issues"
+    "url": "https://github.com/MediaComem/exploit-csrf-bank/issues"
   },
-  "homepage": "https://github.com/AlphaHydrae/exploit-csrf-bank#readme",
+  "homepage": "https://github.com/MediaComem/exploit-csrf-bank#readme",
   "type": "module",
   "scripts": {
     "clean": "del db.loki \"sessions/*.json\"",

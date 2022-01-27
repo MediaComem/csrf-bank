@@ -63,5 +63,8 @@ The application can be configured using the following environment variables:
 | `BANK_TITLE`            | `Carl Sagan Richard Feynman Bank`        | The title displayed in the navbar.                                   |
 | `BANK_LOG_LEVEL`        | `DEBUG` in production, `TRACE` otherwise | The highest level of log messages to output.                         |
 
+> In development mode, you can also put these settings in a `.env` file in the
+> repository.
+
 [bcrypt]: https://en.wikipedia.org/wiki/Bcrypt
 [node]: https://nodejs.org

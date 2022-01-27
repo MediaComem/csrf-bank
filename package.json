@@ -1,7 +1,7 @@
 {
-  "name": "gallery",
+  "name": "csrf-bank",
   "version": "1.0.0",
-  "description": "Image gallery",
+  "description": "An e-banking web application demonstrating what happens when you do not protect your forms with Cross-Site Request Forgery (CSRF) tokens",
   "private": true,
   "repository": {
     "type": "git",
